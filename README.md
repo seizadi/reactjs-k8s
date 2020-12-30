@@ -243,6 +243,11 @@ Starting the development server...
 
 So this works on kind cluster and the problem is with minikube running this workload!
 I guess this means I will stop using minikube for now.
+```bash
+❯ minikube delete
+🔥  Deleting "minikube" in hyperkit ...
+💀  Removed all traces of the "minikube" cluster.
+```
 
 Disable Readiness and Liveness probes
 ```bash
