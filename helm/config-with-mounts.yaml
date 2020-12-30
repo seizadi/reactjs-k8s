@@ -1,8 +1,22 @@
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
-- role: control-plane
-  # add a mount from /path/to/my/files on the host to /files on the node
-  extraMounts:
-  - hostPath: /Users/seizadi/project/reactjs-sample
-    containerPath: /host
+  - role: control-plane
+    # add a mount from hostPath: /path/to/my/files on the host to containerPath: /files on the node
+    extraMounts:
+      - hostPath: /Users/seizadi/project/reactjs-sample
+        containerPath: /host
+
+    kubeadmConfigPatches:
+      - |
+        kind: InitConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "ingress-ready=true"
+    extraPortMappings:
+      - containerPort: 80
+        hostPort: 80
+        protocol: TCP
+      - containerPort: 443
+        hostPort: 443
+        protocol: TCP
